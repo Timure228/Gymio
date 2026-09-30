@@ -9,3 +9,7 @@
 * Manage training programs – create, edit, and customize personal training plans. 
 
 * Track training days – log completed sessions, exercises, sets, and repetitions to monitor progress.
+
+Tech-Stack -> **React Native**
+
+[One-Pager](gymio.jpg)
