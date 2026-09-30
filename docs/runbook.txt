@@ -1,0 +1,1 @@
+to start write "npx expo start --port=8080" in command line while being in the "/Gymio" directory.
