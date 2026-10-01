@@ -9,7 +9,7 @@ interface ExerciseItemProps {
     dataSource: Exercise[]
 }
 
-export default function ExerciseItems({ dataSource }: ExerciseItemProps) {
+export default function ExerciseItem({ dataSource }: ExerciseItemProps) {
     const styles = StyleSheet.create({
         container: {
             flex: 1
@@ -35,8 +35,8 @@ export default function ExerciseItems({ dataSource }: ExerciseItemProps) {
     }
 
     const ExerciseRow = ({ item }: ExerciseRowProps) => {
-        const [sets, setSets] = useState(Number(item.sets))
-        const [pause, setPause] = useState(Number(item.pause_sec))
+        const [sets, setSets] = useState(item.sets)
+        const [pause, setPause] = useState(item.pause_sec)
 
         if (sets <= 0) return
 
@@ -50,7 +50,7 @@ export default function ExerciseItems({ dataSource }: ExerciseItemProps) {
                 if (remaining <= 0) {
                     clearInterval(id)
                     setSets(s => s - 1)
-                    setPause(Number(item.pause_sec))
+                    setPause(item.pause_sec)
                 } else {
                     setPause(remaining)
                 }

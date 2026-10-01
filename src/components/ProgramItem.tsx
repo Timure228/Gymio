@@ -1,4 +1,6 @@
+import { useProgram } from "@/context/ProgramContext";
 import Program from "@/models/program";
+import Ionicons from "@react-native-vector-icons/ionicons";
 import { useRouter } from "expo-router";
 import { FlatList, Pressable, StyleSheet, View } from "react-native";
 import { AppText } from "./AppText";
@@ -23,6 +25,7 @@ export default function ProgramItem({ dataSource }: ProgramItemProps) {
             padding: 10,
             backgroundColor: "gray",
             borderRadius: 24,
+            gap: 16
 
         },
         program_style: {
@@ -30,6 +33,9 @@ export default function ProgramItem({ dataSource }: ProgramItemProps) {
             fontWeight: "bold"
         }
     })
+
+    const { updateStatus } = useProgram()
+    const { deleteProgram } = useProgram()
 
     return (
         <View style={styles.container}>
@@ -39,14 +45,15 @@ export default function ProgramItem({ dataSource }: ProgramItemProps) {
                     <View style={styles.program_card}>
                         <Pressable onPress={() => router.push({
                             pathname: "/program_overview",
-                            params: { program_name: item.programmName, status: item.status, exercises_list: JSON.stringify(item.exercises_list) }
+                            params: { program_name: item.programName, status: item.status, exercises_list: JSON.stringify(item.exercises_list) }
                         })}>
-                            <AppText style={styles.program_style}>{item.programmName + " (" + item.status + ")"}</AppText>
+                            <AppText style={styles.program_style}>{item.programName + " (" + item.status + ")"}</AppText>
                         </Pressable>
+                        <Pressable onPress={() => updateStatus(item.programName, "Done")}><Ionicons color="yellow" size={24} name="checkmark" /></Pressable>
+                        <Pressable onPress={() => deleteProgram(item.programName)}><Ionicons color="red" size={24} name="trash" /></Pressable>
                     </View>
-
                 }
-                keyExtractor={item => `basicListEntry-${item.programmName}`}
+                keyExtractor={item => `basicListEntry-${item.programName}`}
                 ListEmptyComponent={ListEmptyComponentShow}
             />
         </View>

@@ -1,8 +1,8 @@
 interface Exercise {
     exercise_name: string,
-    reps: Number,
-    sets: Number,
-    pause_sec: Number
+    reps: number,
+    sets: number,
+    pause_sec: number
 }
 
 export default Exercise

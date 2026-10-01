@@ -2,7 +2,7 @@ import { AppText } from '@/components/AppText';
 import ProgramItem from '@/components/ProgramItem';
 import { useProgram } from '@/context/ProgramContext';
 import { useFonts } from "expo-font";
-import { StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, View } from 'react-native';
 
 export default function HomeScreen() {
   const today = new Date();
@@ -15,16 +15,20 @@ export default function HomeScreen() {
   }
 
   // Define Program List
-  const { programList } = useProgram()
+  const { programList, isLoading } = useProgram()
 
   return (
     <View style={styles.container}>
-      <AppText style={styles.title_text}>Gymio</AppText>
+      <View style={styles.title_header}>
+        <AppText style={styles.title_text}>Gymio</AppText>
+        <Image style={{ width: 64, height: 64 }} source={require("@/assets/images/dumbell.png")} />
+      </View>
       <View style={styles.date_text_container}>
         <AppText style={styles.date_text}>{today.toLocaleDateString()}</AppText>
         <AppText style={{ fontSize: 20 }}>Meine Programme:</AppText>
       </View>
       <ProgramItem dataSource={programList} />
+      {isLoading && <ActivityIndicator size="large" color="#00ff00" />}
     </View>
   );
 }
@@ -32,7 +36,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "black"
+    backgroundColor: "black",
   },
   date_text_container: {
     flex: 1,
@@ -50,5 +54,11 @@ const styles = StyleSheet.create({
     fontFamily: "BlippoRegular",
     fontWeight: "bold",
     fontSize: 34
+  },
+  title_header: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    padding: 6
   }
 });
