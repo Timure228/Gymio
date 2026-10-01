@@ -1,5 +1,4 @@
 import Program from "@/models/program";
-import Ionicons from "@react-native-vector-icons/ionicons";
 import { useRouter } from "expo-router";
 import { FlatList, Pressable, StyleSheet, View } from "react-native";
 import { AppText } from "./AppText";
@@ -20,7 +19,6 @@ export default function ProgramItem({ dataSource }: ProgramItemProps) {
             display: "flex",
             alignItems: "center",
             flexDirection: "row",
-            justifyContent: "space-between",
             margin: 5,
             padding: 10,
             backgroundColor: "gray",
@@ -45,7 +43,6 @@ export default function ProgramItem({ dataSource }: ProgramItemProps) {
                         })}>
                             <AppText style={styles.program_style}>{item.programmName + " (" + item.status + ")"}</AppText>
                         </Pressable>
-                        <Pressable><Ionicons name="play" size={24} color="#6aff00" /></Pressable>
                     </View>
 
                 }

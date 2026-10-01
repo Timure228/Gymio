@@ -10,7 +10,7 @@ export function ExerciseProvider({ children }: { children: ReactNode }) {
 
     // Define Exercise List
     const [exerciseListSuperShredded8, setExerciseListSuperShredded8] = useState<Exercise[]>([
-        { exercise_name: "Bankdrücken", reps: 20, sets: 3, pause_sec: 30 }
+        { exercise_name: "Bankdrücken", reps: 20, sets: 3, pause_sec: 5 }
     ])
 
     const [exerciseListSuperHeavy, setExerciseListSuperHeavy] = useState<Exercise[]>([
