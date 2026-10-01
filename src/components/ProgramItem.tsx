@@ -2,7 +2,7 @@ import { useProgram } from "@/context/ProgramContext";
 import Program from "@/models/program";
 import Ionicons from "@react-native-vector-icons/ionicons";
 import { useRouter } from "expo-router";
-import { FlatList, Pressable, StyleSheet, View } from "react-native";
+import { Alert, FlatList, Pressable, StyleSheet, View } from "react-native";
 import { AppText } from "./AppText";
 import ListEmptyComponentShow from "./ListEmptyComponentShow";
 
@@ -50,12 +50,33 @@ export default function ProgramItem({ dataSource }: ProgramItemProps) {
                             <AppText style={styles.program_style}>{item.programName + " (" + item.status + ")"}</AppText>
                         </Pressable>
                         <Pressable onPress={() => updateStatus(item.programName, "Done")}><Ionicons color="yellow" size={24} name="checkmark" /></Pressable>
-                        <Pressable onPress={() => deleteProgram(item.programName)}><Ionicons color="red" size={24} name="trash" /></Pressable>
+                        <Pressable onPress={() => {
+                            Alert.alert('Löschen bestätigen',
+                                'Möchten Sie diese Vokabel wirklich löschen?',
+                                [
+                                    {
+                                        text: 'Abbrechen',
+                                        style: 'cancel',
+                                    },
+                                    {
+                                        text: 'Löschen',
+                                        style: 'destructive',
+                                        onPress: () => {
+                                            deleteProgram(item.programName);
+                                        }
+                                    },
+                                ]
+                            );
+
+
+                        }
+
+                        }><Ionicons color="red" size={24} name="trash" /></Pressable>
                     </View>
                 }
                 keyExtractor={item => `basicListEntry-${item.programName}`}
                 ListEmptyComponent={ListEmptyComponentShow}
             />
-        </View>
+        </View >
     )
 }
