@@ -1,34 +1,30 @@
 import { AppText } from '@/components/AppText';
 import ProgramItem from '@/components/ProgramItem';
-import Program from '@/models/program';
+import { useProgram } from '@/context/ProgramContext';
 import { useFonts } from "expo-font";
-import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 export default function HomeScreen() {
   const today = new Date();
 
   // Load fonts
-  const [loaded, error] = useFonts({BlippoRegular: require("../../assets/fonts/Blippo_Regular.ttf")}) 
+  const [loaded, error] = useFonts({ BlippoRegular: require("../../assets/fonts/Blippo_Regular.ttf") })
 
   if (!loaded && !error) {
-    return null; 
+    return null;
   }
 
   // Define Program List
-  const [programList, setProgramList] = useState<Program[]>([
-    {programmName: "Super Shredded 8", status: "In Progress"},
-    {programmName: "Super Heavy", status: "Done"}
-  ])
+  const { programList } = useProgram()
 
   return (
     <View style={styles.container}>
       <AppText style={styles.title_text}>Gymio</AppText>
       <View style={styles.date_text_container}>
         <AppText style={styles.date_text}>{today.toLocaleDateString()}</AppText>
-        <AppText style={{fontSize: 20}}>Meine Programme:</AppText>
+        <AppText style={{ fontSize: 20 }}>Meine Programme:</AppText>
       </View>
-      <ProgramItem dataSource={programList}/>
+      <ProgramItem dataSource={programList} />
     </View>
   );
 }
@@ -41,7 +37,7 @@ const styles = StyleSheet.create({
   date_text_container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center", 
+    alignItems: "center",
     flexDirection: "column",
     gap: 8,
     position: "relative",

@@ -21,7 +21,8 @@ Stack
 Programm
 {
     programmName: string,
-    status: string
+    status: string,
+    exercises_list: Exercise[]
 }
 Übung
 {

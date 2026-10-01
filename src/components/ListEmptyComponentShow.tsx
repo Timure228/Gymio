@@ -12,7 +12,7 @@ export default function ListEmptyComponentShow() {
     });
     return (
         <View style={styles.container}>
-            <AppText>There are no Programs to show!</AppText>
+            <AppText>There are no Items to show!</AppText>
         </View>
     );
 };
