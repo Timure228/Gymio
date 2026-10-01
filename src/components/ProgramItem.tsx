@@ -103,11 +103,8 @@ export default function ProgramItem({ dataSource }: ProgramItemProps) {
                                     },
                                 ]
                             );
-
-
-                        }
-
-                        }><Ionicons color="black" size={24} name="trash" /></Pressable>
+                        }}>
+                            <Ionicons color="black" size={24} name="trash" /></Pressable>
                     </View>
                 }
                 keyExtractor={item => `basicListEntry-${item.programName}`}

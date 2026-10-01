@@ -29,7 +29,6 @@ export default function TabLayout() {
             headerTitleStyle: {
               fontSize: 20,
               fontWeight: "900",
-              letterSpacing: 1.5,
               color: "#FFFFFF"
             }
           }}
@@ -62,12 +61,12 @@ export default function TabLayout() {
             }}
           />
           <Stack.Screen
-          name="addProgram"
-          options={{
-            title: "Neues Programm",
-            presentation: "modal"
-          }}
-        />
+            name="addProgram"
+            options={{
+              title: "Neues Programm",
+              presentation: "modal"
+            }}
+          />
         </Stack>
       </ProgramProvider>
     </ExerciseProvider>
