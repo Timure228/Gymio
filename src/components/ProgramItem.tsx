@@ -15,22 +15,57 @@ export default function ProgramItem({ dataSource }: ProgramItemProps) {
 
     const styles = StyleSheet.create({
         container: {
-            flex: 1
+            flex: 1,
+            paddingHorizontal: 8,
+            paddingTop: 8
         },
         program_card: {
             display: "flex",
             alignItems: "center",
             flexDirection: "row",
-            margin: 5,
-            padding: 10,
-            backgroundColor: "gray",
-            borderRadius: 24,
-            gap: 16
-
+            marginHorizontal: 4,
+            marginVertical: 7,
+            paddingVertical: 16,
+            paddingHorizontal: 18,
+            backgroundColor: "#FFFFFF",
+            borderRadius: 20,
+            borderWidth: 2,
+            borderColor: "#000000",
+            gap: 12,
+            shadowColor: "#000000",
+            shadowOffset: { width: 4, height: 4 },
+            shadowOpacity: 1,
+            shadowRadius: 0,
+            elevation: 6
+        },
+        program_title_wrapper: {
+            flex: 1
         },
         program_style: {
             fontSize: 18,
-            fontWeight: "bold"
+            fontWeight: "800",
+            letterSpacing: 0.4,
+            color: "#000000"
+        },
+        action_button_done: {
+            width: 40,
+            height: 40,
+            borderRadius: 20,
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#000000",
+            borderWidth: 2,
+            borderColor: "#000000"
+        },
+        action_button_delete: {
+            width: 40,
+            height: 40,
+            borderRadius: 20,
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#FFFFFF",
+            borderWidth: 2,
+            borderColor: "#000000"
         }
     })
 
@@ -41,16 +76,17 @@ export default function ProgramItem({ dataSource }: ProgramItemProps) {
         <View style={styles.container}>
             <FlatList
                 data={dataSource}
+                showsVerticalScrollIndicator={false}
                 renderItem={({ item }) =>
                     <View style={styles.program_card}>
-                        <Pressable onPress={() => router.push({
+                        <Pressable style={styles.program_title_wrapper} onPress={() => router.push({
                             pathname: "/program_overview",
                             params: { program_name: item.programName, status: item.status, exercises_list: JSON.stringify(item.exercises_list) }
                         })}>
                             <AppText style={styles.program_style}>{item.programName + " (" + item.status + ")"}</AppText>
                         </Pressable>
-                        <Pressable onPress={() => updateStatus(item.programName, "Done")}><Ionicons color="yellow" size={24} name="checkmark" /></Pressable>
-                        <Pressable onPress={() => {
+                        <Pressable style={styles.action_button_done} onPress={() => updateStatus(item.programName, "Done")}><Ionicons color="white" size={24} name="checkmark" /></Pressable>
+                        <Pressable style={styles.action_button_delete} onPress={() => {
                             Alert.alert('Löschen bestätigen',
                                 'Möchten Sie diese Vokabel wirklich löschen?',
                                 [
@@ -71,7 +107,7 @@ export default function ProgramItem({ dataSource }: ProgramItemProps) {
 
                         }
 
-                        }><Ionicons color="red" size={24} name="trash" /></Pressable>
+                        }><Ionicons color="black" size={24} name="trash" /></Pressable>
                     </View>
                 }
                 keyExtractor={item => `basicListEntry-${item.programName}`}

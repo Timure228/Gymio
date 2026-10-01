@@ -12,21 +12,48 @@ interface ExerciseItemProps {
 export default function ExerciseItem({ dataSource }: ExerciseItemProps) {
     const styles = StyleSheet.create({
         container: {
-            flex: 1
+            flex: 1,
+            paddingHorizontal: 8,
+            paddingTop: 8
         },
         exercise_card: {
             display: "flex",
             alignItems: "center",
             flexDirection: "row",
             justifyContent: "space-between",
-            margin: 5,
-            padding: 10,
-            backgroundColor: "gray",
-            borderRadius: 24,
+            marginHorizontal: 4,
+            marginVertical: 7,
+            paddingVertical: 16,
+            paddingHorizontal: 18,
+            backgroundColor: "#FFFFFF",
+            borderRadius: 20,
+            borderWidth: 2,
+            borderColor: "#000000",
+            gap: 12,
+            shadowColor: "#000000",
+            shadowOffset: { width: 4, height: 4 },
+            shadowOpacity: 1,
+            shadowRadius: 0,
+            elevation: 6
         },
         exercise_style: {
-            fontSize: 14,
-            fontWeight: "bold"
+            flex: 1,
+            fontSize: 15,
+            fontWeight: "800",
+            letterSpacing: 0.4,
+            lineHeight: 22,
+            color: "#000000"
+        },
+        play_button: {
+            width: 48,
+            height: 48,
+            borderRadius: 24,
+            alignItems: "center",
+            justifyContent: "center",
+            paddingLeft: 3,
+            backgroundColor: "#000000",
+            borderWidth: 2,
+            borderColor: "#000000"
         }
     })
 
@@ -61,8 +88,8 @@ export default function ExerciseItem({ dataSource }: ExerciseItemProps) {
                 <AppText style={styles.exercise_style}>
                     {item.exercise_name + ": Reps: " + item.reps + " | Sets: " + sets + " | Pause: " + pause}
                 </AppText>
-                <Pressable onPress={startPause}>
-                    <Ionicons name="play" size={38} color="#ffffff" />
+                <Pressable style={styles.play_button} onPress={startPause}>
+                    <Ionicons name="play" size={24} color="#ffffff" />
                 </Pressable>
             </View>
         )
@@ -73,6 +100,7 @@ export default function ExerciseItem({ dataSource }: ExerciseItemProps) {
         <View style={styles.container}>
             <FlatList
                 data={dataSource}
+                showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => <ExerciseRow item={item} />}
                 keyExtractor={item => `basicListEntry-${item.exercise_name}`}
                 ListEmptyComponent={ListEmptyComponentShow}
