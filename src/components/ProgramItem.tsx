@@ -1,4 +1,5 @@
 import { useProgram } from "@/context/ProgramContext";
+import { supabase } from "@/lib/supebase";
 import Program from "@/models/program";
 import Ionicons from "@react-native-vector-icons/ionicons";
 import { useRouter } from "expo-router";
@@ -57,6 +58,16 @@ export default function ProgramItem({ dataSource }: ProgramItemProps) {
             borderWidth: 2,
             borderColor: "#000000"
         },
+        action_button_publish: {
+            width: 40,
+            height: 40,
+            borderRadius: 20,
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "#FFFFFF",
+            borderWidth: 2,
+            borderColor: "#000000"
+        },
         action_button_delete: {
             width: 40,
             height: 40,
@@ -72,6 +83,35 @@ export default function ProgramItem({ dataSource }: ProgramItemProps) {
     const { updateStatus } = useProgram()
     const { deleteProgram } = useProgram()
 
+    const publishProgram = async (program: Program) => {
+        const { data: existing, error: checkError } = await supabase
+            .from("workshop_programs")
+            .select("programName")
+            .eq("programName", program.programName)
+
+        if (checkError) {
+            Alert.alert("Fehler", checkError.message)
+            return
+        }
+
+        if (existing && existing.length > 0) {
+            Alert.alert("Schon veröffentlicht", "Im Workshop gibt es bereits ein Programm mit diesem Namen.")
+            return
+        }
+
+        const { error } = await supabase.from("workshop_programs").insert({
+            programName: program.programName,
+            status: program.status,
+            exercises_list: program.exercises_list ?? []
+        })
+
+        if (error) {
+            Alert.alert("Fehler", error.message)
+        } else {
+            Alert.alert("Veröffentlicht", `"${program.programName}" ist jetzt im Workshop.`)
+        }
+    }
+
     return (
         <View style={styles.container}>
             <FlatList
@@ -86,6 +126,23 @@ export default function ProgramItem({ dataSource }: ProgramItemProps) {
                             <AppText style={styles.program_style}>{item.programName + " (" + item.status + ")"}</AppText>
                         </Pressable>
                         <Pressable style={styles.action_button_done} onPress={() => updateStatus(item.programName, "Done")}><Ionicons color="white" size={24} name="checkmark" /></Pressable>
+                        <Pressable style={styles.action_button_publish} onPress={() => {
+                            Alert.alert('Veröffentlichen',
+                                'Dieses Programm im Workshop für alle sichtbar machen?',
+                                [
+                                    {
+                                        text: 'Abbrechen',
+                                        style: 'cancel',
+                                    },
+                                    {
+                                        text: 'Veröffentlichen',
+                                        onPress: () => {
+                                            publishProgram(item);
+                                        }
+                                    },
+                                ]
+                            );
+                        }}><Ionicons color="black" size={22} name="cloud-upload" /></Pressable>
                         <Pressable style={styles.action_button_delete} onPress={() => {
                             Alert.alert('Löschen bestätigen',
                                 'Möchten Sie diese Vokabel wirklich löschen?',
@@ -103,8 +160,11 @@ export default function ProgramItem({ dataSource }: ProgramItemProps) {
                                     },
                                 ]
                             );
-                        }}>
-                            <Ionicons color="black" size={24} name="trash" /></Pressable>
+
+
+                        }
+
+                        }><Ionicons color="black" size={24} name="trash" /></Pressable>
                     </View>
                 }
                 keyExtractor={item => `basicListEntry-${item.programName}`}
