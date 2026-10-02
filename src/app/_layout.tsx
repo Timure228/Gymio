@@ -67,6 +67,13 @@ export default function TabLayout() {
               presentation: "modal"
             }}
           />
+          <Stack.Screen
+            name="workshop"
+            options={{
+              title: "Workshop",
+              presentation: "modal"
+            }}
+          />
         </Stack>
       </ProgramProvider>
     </ExerciseProvider>

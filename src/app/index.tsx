@@ -26,6 +26,7 @@ export default function HomeScreen() {
         <AppText style={styles.title_text}>Gymio</AppText>
         <Image style={styles.logo_image} source={require("@/assets/images/dumbell.png")} />
         <Pressable style={styles.progress_button} onPress={() => router.push("/progress")}><Image style={styles.progress_image} source={require("@/assets/images/progress.png")} /></Pressable>
+        <Pressable style={styles.workshop_button} onPress={() => router.push("/workshop")}><Ionicons name="people" size={40} color="#ffffff" /></Pressable>
       </View>
       <View style={styles.divider} />
       <View style={styles.date_text_container}>
@@ -64,6 +65,13 @@ const styles = StyleSheet.create({
   },
   progress_button: {
     marginLeft: "auto",
+    padding: 8,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "#2a2a2a",
+    backgroundColor: "#111111",
+  },
+  workshop_button: {
     padding: 8,
     borderRadius: 16,
     borderWidth: 1,
